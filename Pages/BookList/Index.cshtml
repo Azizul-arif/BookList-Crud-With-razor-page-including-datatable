@@ -1,0 +1,88 @@
+﻿@page
+@*@model BookList.Pages.BookList.IndexModel*@
+@model BookList.IndexModel
+@{
+    ViewData["Title"] = "Index";
+}
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+<br />
+<div class="container">
+    <div class="row p-0 m-0">
+        <div class="col-md-8 col-lg-8 col-sm-8">
+            <h2 class="text-info">Book List</h2>
+        </div>
+        <div class="col-md-4 col-lg-4 col-sm-4">
+            <a asp-page="Create" class="btn btn-info text-white">Create New Book </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 border p-3 mt-3">
+            <form method="post">
+                @if (Model.Books.Count() > 0)
+                {
+                    <table class="table table-striped border">
+                        <tr class="table-secondary">
+                            <th>
+                                <label asp-for="Books.FirstOrDefault().Name"></label> @*//using Tag Helper for name*@
+                            </th>
+                            <th>
+                                <label asp-for="Books.FirstOrDefault().Author"></label> @*//using Tag Helper for author*@
+                            </th>
+                            <th>
+                                <label asp-for="Books.FirstOrDefault().ISBN"></label> @*//using Tag Helper for author*@
+                            </th>
+                            <th>
+                                <p>Action</p>
+                            </th>
+
+                        </tr>
+                        @foreach (var item in Model.Books)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(m => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.Author)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(m => item.ISBN)
+                                </td>
+                                <td>
+                                    <button asp-page-handler="Delete" asp-route-id="@item.Id" onclick="return confirm('Are you sure you want to delete?')" class="btn btn-danger btn-sm">Delete</button>
+                                    <a asp-page="Edit" asp-route-id="@item.Id" class="btn btn-success btn-sm text-white">Edit</a> <!--asp-route-id use to pass the id-->
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                }
+                else
+                {
+                    <p>No Books Available</p>
+                }
+
+            </form>
+        </div>
+    </div>
+    <div class="col-12" style="text-align:center">
+        <br />
+        <span class="h3 text-info">OR</span>
+        <br />
+    </div>
+    <div class="col-12 border p-3">
+        <table id="DT_load" class="table table-striped table-bordered" style="width:100%;" >
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+@section Scripts{ 
+   <script src="~/js/booklist.js"></script>
+}

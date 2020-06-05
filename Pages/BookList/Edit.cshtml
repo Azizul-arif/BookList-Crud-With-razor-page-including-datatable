@@ -1,0 +1,58 @@
+﻿@page
+@model BookList.EditModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<br />
+<h2 class="text-info">Edit  Book</h2>
+<br />
+
+<div class="container">
+    <form method="post">
+        <input type="hidden" asp-for="Book.Id" />
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Book.Name"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Book.Name" class="form-control" />
+            </div>
+            <span asp-validation-for="Book.Name" class="text-danger"></span> <!--asp-validation-for to show text if the name is empty as it is required field-->
+
+        </div>
+
+
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Book.Author"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Book.Author" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Book.ISBN"></label>
+            </div>
+            <div class="col-6">
+                <input asp-for="Book.ISBN" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group row offset-5">
+
+            <div class="col-3">
+                <input type="submit" value="Update" class="btn btn-primary btn-sm form-control" />
+            </div>
+            <div class="col-3">
+                <a asp-page="Index" class="btn btn-success btn-sm form-control text-white">Back</a>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
+
